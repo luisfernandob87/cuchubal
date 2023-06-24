@@ -4,34 +4,22 @@ const { UsuarioCuota } = require('../models/usuarioCuota.model')
 const getUsuarios = async (req, res) => {
 
     try {
-        const usuarios = await Usuario.findAll()
+        const usuarios = await Usuario.findAll({
+            // attributes: { exclude: ['password'] }
+        })
         res.json(usuarios)
     } catch (error) {
         return res.status(500).json({ message: error.message })
     }
 }
 
-const createUsuario = async (req, res) => {
-    try {
-        const { nombre, correo, password } = req.body
-
-        const newUser = await Usuario.create({
-            nombre,
-            correo,
-            password
-        })
-
-        res.json(newUser)
-    } catch (error) {
-        return res.status(500).json({ message: error.message })
-    }
-}
 
 const getUsuario = async (req, res) => {
     const { id } = req.params
     try {
         const usuario = await Usuario.findOne({
-            where: { id }
+            where: { id },
+            // attributes: { exclude: ['password'] }
         })
         res.json(usuario)
     } catch (error) {
@@ -69,4 +57,4 @@ const getUsuarioCuotas = async (req, res) => {
     res.json(usuarioCuotas)
 }
 
-module.exports = { getUsuarios, createUsuario, getUsuario, updateUsuario, deleteUsuario, getUsuarioCuotas }
+module.exports = { getUsuarios, getUsuario, updateUsuario, deleteUsuario, getUsuarioCuotas }
