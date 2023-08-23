@@ -5,8 +5,29 @@ const bcrypt = require('bcryptjs');
 
 const routerAut = Router()
 
-routerAut.post('/login', (req, res, next) => {
-    res.json('login')
+routerAut.post('/login', async (req, res, next) => {
+
+    const { correo, password } = req.body;
+
+    const user = await Usuario.findOne({
+        where: { correo }
+    });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        return next("Error con credenciales")
+    }
+
+    user.password = undefined;
+
+    const token = jwt.sign({ id: user.id }, "process.env.JWT_SECRET", {
+        expiresIn: '30d',
+    });
+
+    res.status(200).json({
+        status: 'success',
+        data: { user, token },
+    });
+
 })
 
 routerAut.post('/signup', async (req, res, next) => {
