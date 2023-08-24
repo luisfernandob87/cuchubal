@@ -7,7 +7,7 @@ const getCuchubal = async (req, res) => {
 }
 
 const createCuchubal = async (req, res) => {
-    const { nombreCuchubal, formaPago, fechaInicio, noParticipantes, cuotaPorParticipante, sorteo } = req.body
+    const { nombreCuchubal, formaPago, fechaInicio, noParticipantes, cuotaPorParticipante, sorteo, idUsuario } = req.body
 
     const newCuchubal = await Cuchubal.create({
         nombreCuchubal,
@@ -15,7 +15,8 @@ const createCuchubal = async (req, res) => {
         fechaInicio,
         noParticipantes,
         cuotaPorParticipante,
-        sorteo
+        sorteo,
+        idUsuario
     })
 
     res.json(newCuchubal)

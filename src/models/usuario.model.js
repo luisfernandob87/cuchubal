@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../database/database')
 const { UsuarioCuota } = require('./usuarioCuota.model')
+const { Cuchubal } = require('./cuchubal.model')
 
 const Usuario = sequelize.define('usuario', {
     id: {
@@ -31,6 +32,16 @@ Usuario.hasMany(UsuarioCuota, {
 UsuarioCuota.belongsTo(Usuario, {
     foreignKey: 'idUsuario',
     targetId: 'id'
+})
+
+Usuario.hasMany(Cuchubal, {
+    foreignKey: 'idUsuario',
+    sourceKey: 'id'
+})
+
+Cuchubal.belongsTo(Usuario, {
+    foreignKey: 'idUsuario',
+    targetKey: 'id'
 })
 
 module.exports = { Usuario }
