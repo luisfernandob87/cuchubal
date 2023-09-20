@@ -2,14 +2,8 @@ const { Cuchubal } = require('../models/cuchubal.model')
 const { UsuarioCuota } = require('../models/usuarioCuota.model')
 const { Usuario } = require('../models/usuario.model')
 
-const getCuchubal = async (req, res) => {
-    const cuchubal = await Cuchubal.findAll()
-    res.json(cuchubal)
-}
-
 const createCuchubal = async (req, res) => {
     const { nombreCuchubal, formaPago, fechaInicio, noParticipantes, cuotaPorParticipante, sorteo, idUsuario } = req.body
-
     const newCuchubal = await Cuchubal.create({
         nombreCuchubal,
         formaPago,
@@ -44,4 +38,4 @@ const getCuchubales = async (req, res) => {
     res.json(cuchubales)
 }
 
-module.exports = { getCuchubal, createCuchubal, getCuchubalCuotas, getCuchubales }
+module.exports = { createCuchubal, getCuchubalCuotas, getCuchubales }
