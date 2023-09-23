@@ -20,7 +20,10 @@ const createCuchubal = async (req, res) => {
 const getCuchubalCuotas = async (req, res) => {
     const { id } = req.params
     const cuchubalCuotas = await UsuarioCuota.findAll({
-        where: { idCuchubal: id }
+        where: { idCuchubal: id },
+        include: [{
+            model: Cuchubal
+        }, { model: Usuario }]
     })
     res.json(cuchubalCuotas)
 }
