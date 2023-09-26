@@ -1,3 +1,4 @@
+const { Cuchubal } = require('../models/cuchubal.model')
 const { Usuario } = require('../models/usuario.model')
 const { UsuarioCuota } = require('../models/usuarioCuota.model')
 
@@ -49,12 +50,17 @@ const deleteUsuario = async (req, res) => {
     }
 }
 
-const getUsuarioCuotas = async (req, res) => {
+const getMisCuotas = async (req, res) => {
     const { id } = req.params
-    const usuarioCuotas = await UsuarioCuota.findAll({
-        where: { idUsuario: id }
+    const usuarioMisCuotas = await UsuarioCuota.findAll({
+        where: { idUsuario: id },
+        include: [{
+            model: Cuchubal,
+        }]
     })
-    res.json(usuarioCuotas)
+    res.json(usuarioMisCuotas)
 }
 
-module.exports = { getUsuarios, getUsuario, updateUsuario, deleteUsuario, getUsuarioCuotas }
+
+
+module.exports = { getUsuarios, getUsuario, updateUsuario, deleteUsuario, getMisCuotas }
