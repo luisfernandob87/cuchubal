@@ -6,14 +6,12 @@ const getUsuarioCuota = async (req, res) => {
     res.json(usuarioCuota)
 }
 
-const createUsuarioCuota = async (req, res) => {
-    const { numeroCuota, idUsuario, idCuchubal } = req.body
 
-    const newUsuarioCuota = await UsuarioCuota.create({
-        numeroCuota,
-        idUsuario,
-        idCuchubal
-    })
+const createUsuarioCuota = async (req, res) => {
+
+    const newUsuarioCuota = await UsuarioCuota.bulkCreate(
+        req.body
+    )
     res.json(newUsuarioCuota)
 }
 
