@@ -7,7 +7,7 @@ routerUser.get('/usuarios', getUsuarios)
 routerUser.delete('/usuario/:id', deleteUsuario)
 routerUser.get('/usuario/:id', getUsuario)
 
-routerUser.get('/usuario', getUsuarioCorreo)
+routerUser.post('/usuario/', getUsuarioCorreo)
 
 routerUser.get('/usuario/:id/miscuotas', getMisCuotas)
 
