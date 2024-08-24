@@ -27,6 +27,20 @@ const getUsuario = async (req, res) => {
         return res.status(500).json({ message: error.message })
     }
 }
+
+const getUsuarioCorreo = async (req, res) => {
+    const { correo } = req.body
+    try {
+        const usuario = await Usuario.findOne({
+            where: { correo },
+            // attributes: { exclude: ['password'] }
+        })
+        res.json(usuario)
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 const updateUsuario = async (req, res) => {
     const { id } = req.params
     const updUsuario = await Usuario.findOne({
@@ -63,4 +77,4 @@ const getMisCuotas = async (req, res) => {
 
 
 
-module.exports = { getUsuarios, getUsuario, updateUsuario, deleteUsuario, getMisCuotas }
+module.exports = { getUsuarios, getUsuario, updateUsuario, deleteUsuario, getMisCuotas, getUsuarioCorreo }
