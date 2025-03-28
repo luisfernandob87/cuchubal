@@ -41,4 +41,21 @@ const getCuchubales = async (req, res) => {
     res.json(cuchubales)
 }
 
-module.exports = { createCuchubal, getCuchubalCuotas, getCuchubales }
+const deleteCuchubal = async (req, res) => {
+    try {
+        const { id } = req.params
+        const result = await Cuchubal.destroy({
+            where: { id }
+        })
+
+        if (result) {
+            res.json({ message: 'Cuchubal deleted successfully' })
+        } else {
+            res.status(404).json({ message: 'Cuchubal not found' })
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+module.exports = { createCuchubal, getCuchubalCuotas, getCuchubales, deleteCuchubal }
