@@ -1,44 +1,39 @@
-const { Cuchubal } = require('../models/cuchubal.model')
-const { UsuarioCuota } = require('../models/usuarioCuota.model')
-const { Usuario } = require('../models/usuario.model')
+const cuchubalService = require('../services/cuchubal.service');
 
 const createCuchubal = async (req, res) => {
-    const { nombreCuchubal, formaPago, fechaInicio, noParticipantes, cuotaPorParticipante, sorteo, idUsuario } = req.body
-    const newCuchubal = await Cuchubal.create({
-        nombreCuchubal,
-        formaPago,
-        fechaInicio,
-        noParticipantes,
-        cuotaPorParticipante,
-        sorteo,
-        idUsuario
-    })
-
-    res.json(newCuchubal)
+    try {
+        const newCuchubal = await cuchubalService.create(req.body);
+        res.status(201).json(newCuchubal);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 }
 
 const getCuchubalCuotas = async (req, res) => {
-    const { id } = req.params
-    const cuchubalCuotas = await UsuarioCuota.findAll({
-        where: { idCuchubal: id },
-        include: [{
-            model: Cuchubal
-        }, { model: Usuario }]
-    })
-    res.json(cuchubalCuotas)
+    try {
+        const cuotas = await cuchubalService.getCuotas(req.params.id);
+        res.json(cuotas);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 }
-
 
 const getCuchubales = async (req, res) => {
-    const { id } = req.params
-    const cuchubales = await Cuchubal.findAll({
-        where: { idUsuario: id },
-        include: [{
-            model: Usuario,
-        }]
-    })
-
-    res.json(cuchubales)
+    try {
+        const cuchubales = await cuchubalService.getByUserId(req.params.id);
+        res.json(cuchubales);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
 }
 
-module.exports = { createCuchubal, getCuchubalCuotas, getCuchubales }
+const deleteCuchubal = async (req, res) => {
+    try {
+        await cuchubalService.delete(req.params.id);
+        res.status(204).send();
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = { createCuchubal, getCuchubalCuotas, getCuchubales, deleteCuchubal }
