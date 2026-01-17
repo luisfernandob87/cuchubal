@@ -20,7 +20,7 @@ class AuthService {
         return { user: userJson, token };
     }
 
-    async signup(nombre, correo, password) {
+    async signup(nombre, correo, password, telefono = null, zona = null) {
         const existingUser = await Usuario.findOne({ where: { correo } });
         if (existingUser) throw new Error('El correo ya está registrado');
 
@@ -30,7 +30,9 @@ class AuthService {
         const newUser = await Usuario.create({
             nombre,
             correo,
-            password: hashedPassword
+            password: hashedPassword,
+            telefono,
+            zona
         });
 
         // Email functionality temporarily disabled

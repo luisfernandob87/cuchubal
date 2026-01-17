@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { getUsuarios, deleteUsuario, getUsuario, getUsuarioCuotas, getMisCuotas, getUsuarioCorreo } = require('../controllers/usuarios.controller')
+const { getUsuarios, deleteUsuario, getUsuario, updateUsuario, getMisCuotas, getUsuarioCorreo } = require('../controllers/usuarios.controller')
 
 const routerUser = Router()
 
@@ -8,6 +8,7 @@ routerUser.delete('/usuario/:id', deleteUsuario)
 routerUser.get('/usuario/:id', getUsuario)
 
 routerUser.post('/usuario/', getUsuarioCorreo)
+routerUser.put('/usuario/:id', updateUsuario)
 
 routerUser.get('/usuario/:id/miscuotas', getMisCuotas)
 

@@ -21,6 +21,14 @@ const Usuario = sequelize.define('usuario', {
     password: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    telefono: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    zona: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 })
 

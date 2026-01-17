@@ -19,8 +19,8 @@ routerAut.post('/login', async (req, res) => {
 
 routerAut.post('/signup', async (req, res) => {
     try {
-        const { nombre, correo, password } = req.body;
-        const newUser = await authService.signup(nombre, correo, password);
+        const { nombre, correo, password, telefono, zona } = req.body;
+        const newUser = await authService.signup(nombre, correo, password, telefono, zona);
 
         res.status(201).json({
             status: 'success',
